@@ -1,0 +1,38 @@
+name: Android Lint
+
+on:
+  workflow_call:
+
+jobs:
+  android-lint:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Setup reviewdog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      # android lintを実行
+      - name: Android Lint
+        id: android-lint
+        run: ./gradlew lint
+      # report
+      - name: Comment PR by reviewdog
+        if: always()
+        run: |
+          find ./*/build/reports/android-lint/lintResults.sarif \
+            -type f \
+            -exec sh -c "cat {} | reviewdog -f=sarif -reporter=github-pr-review" \;
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}

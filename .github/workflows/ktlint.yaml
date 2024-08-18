@@ -1,0 +1,19 @@
+name: Ktlint
+
+on:
+  workflow_call:
+
+jobs:
+  ktlint:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: ktlint
+        uses: ScaCap/action-ktlint@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
