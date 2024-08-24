@@ -11,3 +11,8 @@ jobs:
 
   android-lint:
     uses: ./.github/workflows/pullRequestCheck/androidLint.yaml
+
+  kover:
+    uses: ./.github/workflows/pullRequestCheck/kover.yaml
+    with:
+      pull_request_number: ${{ github.event.number }}

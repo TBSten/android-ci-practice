@@ -1,0 +1,48 @@
+name: Kover
+
+on:
+  workflow_call:
+    inputs:
+      pull_request_number:
+        description: "for deploy"
+        type: string
+        required: true
+
+jobs:
+  kover:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: "github-pages-deploy"
+      cancel-in-progress: false
+    steps:
+      # setup
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # report
+      - name: Kover
+        run: ./gradlew :app:koverHtmlReportDebug
+      - name: Copy results to publish directory
+        run: |
+          mkdir pages-public
+          cp -R ./app/build/reports/kover/htmlDebug pages-public/pr-${{ inputs.pull_request_number }}/kover-reports
+      - name: Deploy test reports
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: pages-public
+          keep_files: true
+      - name: Comment reports link
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: "kover-pr-deploy"

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
 
     alias(libs.plugins.ktlintGradlePlugin)
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -75,6 +76,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // TODO: if multi module project, add kover(project(":another:module"))
 }
 
 configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
