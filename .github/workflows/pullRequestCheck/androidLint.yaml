@@ -31,7 +31,7 @@ jobs:
       - name: Comment PR by reviewdog
         if: always()
         run: |
-          find ./*/build/reports/android-lint/lintResults.sarif \
+          find ./**/build/reports/lint-results-*.sarif \
             -type f \
             -exec sh -c "cat {} | reviewdog -f=sarif -reporter=github-pr-review" \;
         env:

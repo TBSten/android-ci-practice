@@ -55,6 +55,7 @@ android {
 
     lint {
         htmlReport = true
+        sarifReport = true
     }
 }
 
