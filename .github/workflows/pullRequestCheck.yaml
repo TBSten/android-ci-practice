@@ -1,13 +1,13 @@
 name: Pull Request Check
 
-on: [ pull_request ]
+on: [pull_request]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   ktlint:
-    uses: ./.github/workflows/ktlint.yaml
+    uses: ./.github/workflows/pullRequestCheck/ktlint.yaml
 
   android-lint:
-    uses: ./.github/workflows/androidLint.yaml
+    uses: ./.github/workflows/pullRequestCheck/androidLint.yaml
