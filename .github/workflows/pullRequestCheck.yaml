@@ -7,12 +7,12 @@ env:
 
 jobs:
   ktlint:
-    uses: ./.github/workflows/pullRequestCheck/ktlint.yaml
+    uses: ./.github/workflows/pullRequestCheckKtlint.yaml
 
   android-lint:
-    uses: ./.github/workflows/pullRequestCheck/androidLint.yaml
+    uses: ./.github/workflows/pullRequestCheckAndroidLint.yaml
 
   kover:
-    uses: ./.github/workflows/pullRequestCheck/kover.yaml
+    uses: ./.github/workflows/pullRequestCheckKover.yaml
     with:
       pull_request_number: ${{ github.event.number }}
