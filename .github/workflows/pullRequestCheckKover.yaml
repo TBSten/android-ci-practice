@@ -34,7 +34,7 @@ jobs:
         run: ./gradlew :app:koverHtmlReportDebug
       - name: Copy results to publish directory
         run: |
-          mkdir pages-public
+          mkdir -p pages-public/pr-${{ inputs.pull_request_number }}
           cp -R ./app/build/reports/kover/htmlDebug pages-public/pr-${{ inputs.pull_request_number }}/kover-reports
       - name: Deploy test reports
         uses: peaceiris/actions-gh-pages@v4
