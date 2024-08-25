@@ -5,6 +5,10 @@ on: [pull_request]
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   ktlint:
     uses: ./.github/workflows/pullRequestCheckKtlint.yaml
