@@ -46,3 +46,7 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           comment_tag: "kover-pr-deploy"
+          message: |
+            ### kover html report
+
+            https://tbsten.github.io/android-ci-practice/pr-${{ inputs.pull_request_number }}/kover-reports/index.html
