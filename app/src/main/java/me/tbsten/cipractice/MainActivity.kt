@@ -47,3 +47,7 @@ private fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+data class Hoge(
+    val fuga: String // trailing comma
+)
